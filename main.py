@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
+import uvicorn
 from bd.database import engine, Base
 from routers.movie import routerMovie
 from routers.users import Login_user
+import os
 
 app = FastAPI(
     title="Aprendiendo FastApi",
@@ -31,4 +33,6 @@ movies = [
 def read_root():
     return HTMLResponse('<h2> Hola mundo! </h2>')
 
-
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8000))
+    uvicorn.run("main:app", host='0.0.0.0', port=port)
